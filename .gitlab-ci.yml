@@ -6,6 +6,7 @@ test-debug:
   image: openjdk:8
   stage: test
   script:
+    - cd cl-sdk-java-curricula
     - ./gradlew build
 
 release:
