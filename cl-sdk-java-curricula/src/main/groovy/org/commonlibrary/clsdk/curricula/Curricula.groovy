@@ -209,10 +209,12 @@ class Curricula {
         return headersBuilder.build()
     }
 
-    private def buildMapResponse(Response response) {
-        [
-            statusCode: response.code(),
-            body: jsonSlurper.parseText(response.body().string())
-        ]
+    private def buildMapResponse(Response response, expectedStatusCode = 200) {
+        if (response.code() != expectedStatusCode) {
+            def errorMsg = "Request to cl-curricula returned ${response.code()} status."
+            throw new Exception(errorMsg.toString())
+        }
+
+        return jsonSlurper.parseText(response.body().string())
     }
 }

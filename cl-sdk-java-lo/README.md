@@ -31,17 +31,7 @@ This guide gives the user working code examples about how to interact with the C
     }
     ```
 
-3.  All the LearningObject functions return a Map with the following structure:
-
-    ```groovy
-    [
-        statusCode: int,
-        body: Map<String, Object>
-    ]
-    ```
-
-
-4.  Supported methods:
+3.  Supported methods:
 
 ### Save learningObjective
 
@@ -58,7 +48,7 @@ println lo.saveLearningObjective(learningObjective)
 #### Response
 
 ```groovy
-[statusCode:200, body:[creationDate:1495619173918, description:description, id:5925566574d4d270c3f5243c, learningObjectiveList:[], modificationDate:1495619173918, name:New learning objective name, new:false]]
+[creationDate:1495619173918, description:description, id:5925566574d4d270c3f5243c, learningObjectiveList:[], modificationDate:1495619173918, name:New learning objective name, new:false]
 ```
 
 
@@ -92,7 +82,7 @@ println lo.save(learningObject)
 #### Response
 
 ```groovy
-[statusCode:200, body:[compoundContent:false, contents:null, creationDate:1495619479975, description:LO description, enabled:true, externalUrl:null, format:null, id:5925579874d4d270c3f5243d, isPublic:true, learningObjectiveList:[], metadata:[author:Learning Object author, context:PRIMARY_EDUCATION, coverage:Learning Object coverage, difficulty:VERY_LOW, endUser:LEARNERS, extraMetadata:[Additional metadata key,Additional metadata value], interactivityDegree:null, isbn:Learning Object ISBN, keywords:null, language:English, price:100.0, status:FINAL, topic:null], modificationDate:1495619479975, name:LearningObject name, new:false, subject:null, title:LO Title, type:EXAM]]
+[compoundContent:false, contents:null, creationDate:1495619479975, description:LO description, enabled:true, externalUrl:null, format:null, id:5925579874d4d270c3f5243d, isPublic:true, learningObjectiveList:[], metadata:[author:Learning Object author, context:PRIMARY_EDUCATION, coverage:Learning Object coverage, difficulty:VERY_LOW, endUser:LEARNERS, extraMetadata:[Additional metadata key,Additional metadata value], interactivityDegree:null, isbn:Learning Object ISBN, keywords:null, language:English, price:100.0, status:FINAL, topic:null], modificationDate:1495619479975, name:LearningObject name, new:false, subject:null, title:LO Title, type:EXAM]
 ```
 
 
@@ -108,7 +98,7 @@ println lo.findById(loId)
 #### Response
 
 ```groovy
-[statusCode:200, body:[compoundContent:false, contents:[creationDate:1495611846927, id:592539c674d4a0d28c9a8bab, md5:null, mimeType:text/html, modificationDate:1495611847586, new:false, resourcesURL:[], url:/learningObjects/592539c674d4a0d28c9a8baa/contents/592539c674d4a0d28c9a8bab/file/Conclusion.html?refPath=592539c674d4a0d28c9a8baa/], creationDate:1495611846915, description:null, enabled:true, externalUrl:null, format:HTML, id:592539c674d4a0d28c9a8baa, isPublic:true, learningObjectiveList:[], metadata:[author:null, context:ANY, coverage:null, difficulty:ANY, endUser:ANY, extraMetadata:[priority,9, type,INFORMATION], interactivityDegree:ANY, isbn:null, keywords:null, language:English, price:0.0, status:ANY, topic:null], modificationDate:1495611847588, name:Conclusion, new:false, subject:null, title:Conclusion, type:null]]
+[compoundContent:false, contents:[creationDate:1495611846927, id:592539c674d4a0d28c9a8bab, md5:null, mimeType:text/html, modificationDate:1495611847586, new:false, resourcesURL:[], url:/learningObjects/592539c674d4a0d28c9a8baa/contents/592539c674d4a0d28c9a8bab/file/Conclusion.html?refPath=592539c674d4a0d28c9a8baa/], creationDate:1495611846915, description:null, enabled:true, externalUrl:null, format:HTML, id:592539c674d4a0d28c9a8baa, isPublic:true, learningObjectiveList:[], metadata:[author:null, context:ANY, coverage:null, difficulty:ANY, endUser:ANY, extraMetadata:[priority,9, type,INFORMATION], interactivityDegree:ANY, isbn:null, keywords:null, language:English, price:0.0, status:ANY, topic:null], modificationDate:1495611847588, name:Conclusion, new:false, subject:null, title:Conclusion, type:null]
 ```
 
 
@@ -129,7 +119,7 @@ println lo.storeContents("5925579874d4d270c3f5243d", contents)
 #### Response
 
 ```groovy
-[statusCode:200, body:[md5:null, mimeType:text/xml, url:/learningObjects/5925579874d4d270c3f5243d/contents/5925594474d4d270c3f5243e/file/filename.xml?refPath=5925579874d4d270c3f5243d/]]
+[md5:null, mimeType:text/xml, url:/learningObjects/5925579874d4d270c3f5243d/contents/5925594474d4d270c3f5243e/file/filename.xml?refPath=5925579874d4d270c3f5243d/]
 ```
 
 

@@ -153,10 +153,12 @@ class LearningObject {
         return headersBuilder.build()
     }
 
-    private def buildMapResponse(Response response) {
-        [
-            statusCode: response.code(),
-            body: response.body().string() ? jsonSlurper.parseText(response.body().string()) : [:]
-        ]
+    private def buildMapResponse(Response response, expectedStatusCode = 200) {
+        if (response.code() != expectedStatusCode) {
+            def errorMsg = "Request to cl-lo returned ${response.code()} status."
+            throw new Exception(errorMsg.toString())
+        }
+
+        return jsonSlurper.parseText(response.body().string())
     }
 }

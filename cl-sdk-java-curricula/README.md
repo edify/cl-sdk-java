@@ -31,17 +31,7 @@ This guide gives the user working code examples about how to interact with the C
     }
     ```
 
-3.  All the Curricula functions return a Map with the following structure:
-
-    ```groovy
-    [
-        statusCode: int,
-        body: Map<String, Object>
-    ]
-    ```
-
-
-4.  Supported methods:
+3.  Supported methods:
 
 ### Save curriculum
 
@@ -76,7 +66,7 @@ println c.save(curriculumObject)
 #### Response
 
 ```groovy
-[statusCode:200, body:[description:description, discipline:discipline, enabled:true, id:611b3e59-e390-42c9-a6e9-3cc36407afc4, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:CurriculumName, title:title]]
+[description:description, discipline:discipline, enabled:true, id:611b3e59-e390-42c9-a6e9-3cc36407afc4, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:CurriculumName, title:title]
 ```
 
 
@@ -93,7 +83,7 @@ println c.findById(curriculumId)
 #### Response
 
 ```groovy
-[statusCode:200, body:[description:description, discipline:discipline, enabled:true, id:611b3e59-e390-42c9-a6e9-3cc36407afc4, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:CurriculumName, title:title]]
+[description:description, discipline:discipline, enabled:true, id:611b3e59-e390-42c9-a6e9-3cc36407afc4, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:CurriculumName, title:title]
 ```
 
 
@@ -111,7 +101,7 @@ println c.find(from, size, all)
 #### Response
 
 ```groovy
-[statusCode:200, body:[content:[[description:description, discipline:discipline, enabled:true, id:268f72e8-af51-4d63-91b2-48b99b82362f, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:c1, title:title], [description:description, discipline:discipline, enabled:true, id:b142d06b-9f9e-4ab0-b552-b64c09b646f5, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:groovyCurriculum, title:title], [description:description, discipline:discipline, enabled:true, id:8e33b137-4db2-4d47-b3a5-da674fe11072, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:c2, title:title C2]], firstPage:true, lastPage:false, numberOfElements:3, totalElements:5, totalPages:2]]
+[content:[[description:description, discipline:discipline, enabled:true, id:268f72e8-af51-4d63-91b2-48b99b82362f, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:c1, title:title], [description:description, discipline:discipline, enabled:true, id:b142d06b-9f9e-4ab0-b552-b64c09b646f5, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:groovyCurriculum, title:title], [description:description, discipline:discipline, enabled:true, id:8e33b137-4db2-4d47-b3a5-da674fe11072, metadata:[author:anyAuthor, context:ANY, coverage:anyCoverage, difficulty:ANY, endUser:ANY, extraMetadata:[extraMetadata1, extraMetadata2], interactivityDegree:ANY, isbn:anyISBN, keywords:anyKeyWordUpdated, language:ENGLISH, price:2000, status:ANY, topic:anyTopic], name:c2, title:title C2]], firstPage:true, lastPage:false, numberOfElements:3, totalElements:5, totalPages:2]
 ```
 
 
@@ -129,7 +119,7 @@ println c.addFolder(curriculumId, folderPath, folderName)
 #### Response
 
 ```groovy
-[statusCode:200, body:[id:daa4759d-3567-4f3e-b0bd-a9d9d18c020c, name:newFolder]]
+[id:daa4759d-3567-4f3e-b0bd-a9d9d18c020c, name:newFolder]
 ```
 
 
@@ -154,7 +144,7 @@ println c.addLearningObject(curriculumId, folderPath, learningObject)
 #### Response
 
 ```groovy
-[statusCode:200, body:[contentUrl:/learningObjects/591f31d172d4d3536e91e583/contents/591f349872d4d3536e91e584/file/filename.xml?refPath=591f31d172d4d3536e91e583/, deleted:false, id:affe75f2-4fef-470c-bfc3-551cf65105a5, learningObjectId:591f31d172d4d3536e91e583, learningObjectives:[], name:LO3, title:WHAT?, updated:false, url:/learningObjects/591f31d172d4d3536e91e583]]
+[contentUrl:/learningObjects/591f31d172d4d3536e91e583/contents/591f349872d4d3536e91e584/file/filename.xml?refPath=591f31d172d4d3536e91e583/, deleted:false, id:affe75f2-4fef-470c-bfc3-551cf65105a5, learningObjectId:591f31d172d4d3536e91e583, learningObjectives:[], name:LO3, title:WHAT?, updated:false, url:/learningObjects/591f31d172d4d3536e91e583]
 ```
 
 
@@ -171,7 +161,7 @@ println c.getFolder(curriculumId, itemPath, learningObjects = false, subFolders 
 #### Response
 
 ```groovy
-[statusCode:200, body:[id:daa4759d-3567-4f3e-b0bd-a9d9d18c020c, name:newFolder]]
+[id:daa4759d-3567-4f3e-b0bd-a9d9d18c020c, name:newFolder]
 ```
 
 
@@ -188,7 +178,7 @@ println c.getLearningObject(curriculumId, itemPath, false, false)
 #### Response
 
 ```groovy
-[statusCode:200, body:[contentUrl:/learningObjects/591f31d172d4d3536e91e583/contents/591f349872d4d3536e91e584/file/filename.xml?refPath=591f31d172d4d3536e91e583/, deleted:false, id:affe75f2-4fef-470c-bfc3-551cf65105a5, learningObjectId:591f31d172d4d3536e91e583, learningObjectives:[], name:LO3, title:WHAT?, updated:false, url:/learningObjects/591f31d172d4d3536e91e583]]
+[contentUrl:/learningObjects/591f31d172d4d3536e91e583/contents/591f349872d4d3536e91e584/file/filename.xml?refPath=591f31d172d4d3536e91e583/, deleted:false, id:affe75f2-4fef-470c-bfc3-551cf65105a5, learningObjectId:591f31d172d4d3536e91e583, learningObjectives:[], name:LO3, title:WHAT?, updated:false, url:/learningObjects/591f31d172d4d3536e91e583]
 ```
 
 
@@ -204,7 +194,7 @@ println c.syncUpdatedLearningObjects(learningObjectId)
 #### Response
 
 ```groovy
-[statusCode:200, body:[updatedRecords:2]]
+[updatedRecords:2]
 ```
 
 
@@ -220,5 +210,5 @@ println c.syncDeletedLearningObjects(learningObjectId)
 #### Response
 
 ```groovy
-[statusCode:200, body:[updatedRecords:2]]
+[updatedRecords:2]
 ```
