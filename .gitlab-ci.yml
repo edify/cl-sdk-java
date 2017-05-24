@@ -7,7 +7,9 @@ test-debug:
   stage: test
   script:
     - cd cl-sdk-java-curricula
-    - ./gradlew build
+    - ./gradlew build -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
+    - cd ../cl-sdk-java-lo
+    - ./gradlew build -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
 
 release:
   image: openjdk:8
@@ -17,3 +19,5 @@ release:
   script:
     - cd cl-sdk-java-curricula
     - ./gradlew artifactPublish -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
+    - cd ../cl-sdk-java-lo
+    - ./gradlew build -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD

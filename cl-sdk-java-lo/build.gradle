@@ -1,0 +1,99 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+buildscript {
+    repositories {
+
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/jfrog/jfrog-jars' }
+        maven {
+            url "https://edify.artifactoryonline.com/edify/libs-snapshot-local"
+            credentials {
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+            }
+        }
+
+        dependencies {
+            classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:+'
+        }
+    }
+}
+
+jar {
+    baseName = "cl-sdk-lo"
+}
+
+version = new File("version").text
+group = "org.commonlibrary"
+description = "CL SDK for the LearningObject Microservice"
+
+repositories {
+    mavenCentral()
+}
+
+/**
+ * Artifactory configuration
+ */
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = 'libs-releases-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+        defaults {
+            publications ('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'libs-releases'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+    }
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+artifactoryPublish {
+  dependsOn jar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
+    compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+
+    compile 'org.commonlibrary:cl-auth-java:0.0.1'
+}
+
+test {
+    testLogging {
+        events 'started', 'passed'
+    }
+}
