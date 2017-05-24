@@ -20,4 +20,4 @@ release:
     - cd cl-sdk-java-curricula
     - ./gradlew artifactPublish -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
     - cd ../cl-sdk-java-lo
-    - ./gradlew build -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
+    - ./gradlew artifactPublish -Partifactory_user=$ARTIFACTORY_USERNAME -Partifactory_password=$ARTIFACTORY_PASSWORD
