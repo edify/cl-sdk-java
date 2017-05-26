@@ -3,8 +3,10 @@ package org.commonlibrary.clsdk.curricula
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import groovy.json.JsonSlurper
+import groovy.util.logging.Log
 import okhttp3.Headers
 import okhttp3.HttpUrl
+import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -18,6 +20,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by diugalde on 20/05/17.
  */
+@Log
 class Curricula {
 
     private OkHttpClient client
@@ -26,16 +29,14 @@ class Curricula {
     private ApiKeyCredentials apiKeyCredentials
     private SAuthc1Signer sAuthc1Signer
     private static final def NONCE_LENGTH = 15
+    private static final def MAX_RETRIES = 3
+    private static final def RETRY_SLEEP = 1500
     private static final MediaType JSON_MEDIA = MediaType.parse("application/json; charset=utf-8")
     private ObjectMapper mapper
     private def jsonSlurper
 
     Curricula(ApiKeyCredentials apiKeyCredentials, baseUrl, apiUrl) {
-        client = new OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build()
+        client = initClient()
         this.baseUrl = baseUrl
         this.apiUrl = apiUrl
         this.apiKeyCredentials = apiKeyCredentials
@@ -231,5 +232,41 @@ class Curricula {
                 response.body().close()
             }
         }
+    }
+
+    private def initClient() {
+        Interceptor retryInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Interceptor.Chain chain) throws IOException {
+                Request request = chain.request()
+                Response response = null
+                boolean responseOK = false
+                def tryCount = 1;
+
+                while (!responseOK) {
+                    try {
+                        response = chain.proceed(request)
+                        responseOK = true
+                    } catch (Exception e) {
+                        if (tryCount <= MAX_RETRIES) {
+                            log.info("Request failed ${e.getMessage()}. TryCount: #${tryCount}.")
+                            Thread.sleep(RETRY_SLEEP);
+                        } else {
+                            throw e
+                        }
+                    } finally {
+                        tryCount++;
+                    }
+                }
+                return response;
+            }
+        }
+
+        return new OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(retryInterceptor)
+            .build()
     }
 }

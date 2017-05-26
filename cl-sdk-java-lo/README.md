@@ -25,7 +25,7 @@ This guide gives the user working code examples about how to interact with the C
         String apiKeyId = "98afcdf62b5ccb73c35b8b2abc061af4"
         String apiSecretKey = "148760d7fd8e9a205e21eefedda352773dd3c925"
         ApiKeyCredentials apiKeyCredentials = new ApiKeyCredentials(apiKeyId, apiSecretKey)
-        String baseUrl = "http://localhost:808"
+        String baseUrl = "http://localhost:8080"
         String apiUrl = "/api/v1"
         LearningObject lo = new LearningObject(apiKeyCredentials, baseUrl, apiUrl)
     }
