@@ -64,11 +64,17 @@ class LearningObject {
     }
 
     InputStream getFileInputStream(learningObject) {
-        URI uri = URI.create(learningObject.contents.url)
-        def path = uri.getPath()
-        def queryParams = [refPath: uri.getQuery().split("=")[1]]
-        Response response = get(path, queryParams)
-        return response.body().byteStream()
+        def urlString = "${baseUrl}${apiUrl}${learningObject.contents.url}".toString()
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        def headersMap = [:]
+        def nonce = Utils.generateRandomString(NONCE_LENGTH)
+        sAuthc1Signer.sign(headersMap, "get", urlString, "", new Date(), apiKeyCredentials, nonce)
+        headersMap.each() { name, value -> conn.setRequestProperty(name, value) }
+
+        conn.getInputStream()
     }
 
     private def get(path, Map<String,String> params = null, apiUrl = this.apiUrl) {
