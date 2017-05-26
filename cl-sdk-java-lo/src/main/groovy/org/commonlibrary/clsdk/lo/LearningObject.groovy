@@ -13,6 +13,8 @@ import okhttp3.Response
 import org.commonlibrary.clauth.SAuthc1Signer
 import org.commonlibrary.clauth.model.ApiKeyCredentials
 
+import java.util.concurrent.TimeUnit
+
 /**
  * Created by diugalde on 20/05/17.
  */
@@ -29,7 +31,11 @@ class LearningObject {
     private def jsonSlurper
 
     LearningObject(ApiKeyCredentials apiKeyCredentials, baseUrl, apiUrl) {
-        client = new OkHttpClient();
+        client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
         this.baseUrl = baseUrl
         this.apiUrl = apiUrl
         this.apiKeyCredentials = apiKeyCredentials
@@ -160,11 +166,20 @@ class LearningObject {
     }
 
     private def buildMapResponse(Response response, expectedStatusCode = 200) {
-        if (response.code() != expectedStatusCode) {
-            def errorMsg = "Request to cl-lo returned ${response.code()} status."
-            throw new Exception(errorMsg.toString())
-        }
+        def closedBody = false
+        try {
+            if (response.code() != expectedStatusCode) {
+                def errorMsg = "Request to cl-lo returned ${response.code()} status."
+                throw new Exception(errorMsg.toString())
+            }
 
-        return jsonSlurper.parseText(response.body().string())
+            def bodyString = response.body().string()
+            closedBody = true
+            return jsonSlurper.parseText(bodyString)
+        } finally {
+            if (response && !closedBody) {
+                response.body().close()
+            }
+        }
     }
 }
